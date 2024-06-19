@@ -1,0 +1,9 @@
+/vendor
+/builds
+/cache
+*.sqlite
+.env
+
+.idea/
+
+.laracord/
