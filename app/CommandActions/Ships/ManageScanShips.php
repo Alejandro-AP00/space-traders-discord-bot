@@ -41,19 +41,19 @@ trait ManageScanShips
 
         $systems_subcommand = (new Option($this->discord()))
             ->setName('systems')
-            ->setDescription("Scan for nearby systems, retrieving information on the systems' distance from the ship and their waypoints. Requires a ship to have the Sensor Array mount installed to use.")
+            ->setDescription('Scan for nearby systems')
             ->setType(Option::SUB_COMMAND)
             ->addOption($ship_symbol);
 
         $waypoints_subcommand = (new Option($this->discord()))
             ->setName('waypoints')
-            ->setDescription("Scan for nearby waypoints, retrieving detailed information on each waypoint in range. Scanning uncharted waypoints will allow you to ignore their uncharted state and will list the waypoints' traits. Requires a ship to have the Sensor Array mount installed to use.")
+            ->setDescription('Scan for nearby waypoints')
             ->setType(Option::SUB_COMMAND)
             ->addOption($ship_symbol);
 
         $ships_subcommand = (new Option($this->discord()))
             ->setName('ships')
-            ->setDescription('Scan for nearby ships, retrieving information for all ships in range. Requires a ship to have the Sensor Array mount installed to use.')
+            ->setDescription('Scan for nearby ships')
             ->setType(Option::SUB_COMMAND)
             ->addOption($ship_symbol);
 

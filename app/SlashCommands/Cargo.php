@@ -9,7 +9,6 @@ use App\CommandActions\Cargo\TradeWithCargo;
 use App\CommandActions\Cargo\TransferCargo;
 use App\Traits\CanPaginate;
 use App\Traits\HasAgent;
-use Discord\Parts\Interactions\Command\Option;
 use Discord\Parts\Interactions\Interaction;
 use Laracord\Commands\SlashCommand;
 
@@ -67,12 +66,6 @@ class Cargo extends SlashCommand
 
     public function options(): array
     {
-        $ship_symbol = (new Option($this->discord()))
-            ->setName('ship')
-            ->setDescription('The symbol of the ship')
-            ->setType(Option::STRING)
-            ->setRequired(true);
-
         return [
             ...$this->extractCargoOptions(),
             ...$this->tradeCargoOptions(),

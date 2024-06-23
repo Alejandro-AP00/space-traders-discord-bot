@@ -35,14 +35,14 @@ trait TradeWithCargo
         return [
             (new Option($this->discord()))
                 ->setName('sell')
-                ->setDescription('Sell cargo in your ship to a market that trades this cargo. The ship must be docked in a waypoint that has the Marketplace trait in order to use this function.')
+                ->setDescription('Sell cargo in your ship to a market that trades this cargo.')
                 ->setType(Option::SUB_COMMAND)
                 ->addOption($ship_symbol)
                 ->addOption($trade_good)
                 ->addOption($units),
             (new Option($this->discord()))
                 ->setName('buy')
-                ->setDescription('The ship must be docked in a waypoint that has Marketplace trait, and the market must be selling a good to be able to purchase it.')
+                ->setDescription('Purchase cargo from a market.')
                 ->setType(Option::SUB_COMMAND)
                 ->addOption($ship_symbol)
                 ->addOption($trade_good)

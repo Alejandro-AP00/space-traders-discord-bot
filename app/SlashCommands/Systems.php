@@ -128,10 +128,7 @@ class Systems extends SlashCommand
         return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
     }
 
-    public function system(Interaction $interaction, string $systemSymbol)
-    {
-
-    }
+    public function system(Interaction $interaction, string $systemSymbol) {}
 
     /**
      * The command interaction routes.

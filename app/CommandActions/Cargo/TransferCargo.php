@@ -32,7 +32,7 @@ trait TransferCargo
             ->setRequired(true);
 
         $to_ship_symbol = (new Option($this->discord()))
-            ->setName('from_ship')
+            ->setName('to_ship')
             ->setDescription('The symbol of the ship you are transferring to')
             ->setType(Option::STRING)
             ->setRequired(true);
