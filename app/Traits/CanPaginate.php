@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use AlejandroAPorras\SpaceTraders\Support\PaginatedResults;
-use Illuminate\Support\Str;
 use Laracord\Discord\Message;
 
 trait CanPaginate
@@ -21,8 +20,8 @@ trait CanPaginate
 
         if ($paginator->totalPages() > 1) {
             $message
-                ->button('Previous', disabled: ! $prev_page, id: Str::uuid(), route: "{$routeName}:{$prev_page}")
-                ->button('Next', disabled: ! $next_page, id: Str::uuid(), route: "{$routeName}:{$next_page}")
+                ->button('Previous', disabled: ! $prev_page, route: "{$routeName}:{$prev_page}")
+                ->button('Next', disabled: ! $next_page, route: "{$routeName}:{$next_page}")
                 ->footerText('Page '.$paginator->currentPage().'/'.$paginator->totalPages());
         }
 
@@ -44,8 +43,8 @@ trait CanPaginate
 
         if ($total_pages > 1) {
             $message
-                ->button('Previous', disabled: ! $prev_page, id: Str::uuid(), route: "{$routeName}:{$prev_page}")
-                ->button('Next', disabled: ! $next_page, id: Str::uuid(), route: "{$routeName}:{$next_page}")
+                ->button('Previous', disabled: ! $prev_page, route: "{$routeName}:{$prev_page}")
+                ->button('Next', disabled: ! $next_page, route: "{$routeName}:{$next_page}")
                 ->footerText('Page '.$page.'/'.$total_pages);
         }
 

@@ -82,8 +82,6 @@ class Agent extends SlashCommand
      */
     public function interactions(): array
     {
-        return [
-            'wave' => fn (Interaction $interaction) => $this->message('👋')->reply($interaction),
-        ];
+        return [];
     }
 }
