@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "alejandro-ap00/space-traders-php-sdk",
-            "version": "v0.7.0",
+            "version": "v0.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Alejandro-AP00/space-traders-php-sdk.git",
-                "reference": "115f32c88b3e1189be528020f2e2bee8f738e43d"
+                "reference": "78e57a95f7c5ddf6f161be5cfd7bc6a35d695ef6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Alejandro-AP00/space-traders-php-sdk/zipball/115f32c88b3e1189be528020f2e2bee8f738e43d",
-                "reference": "115f32c88b3e1189be528020f2e2bee8f738e43d",
+                "url": "https://api.github.com/repos/Alejandro-AP00/space-traders-php-sdk/zipball/78e57a95f7c5ddf6f161be5cfd7bc6a35d695ef6",
+                "reference": "78e57a95f7c5ddf6f161be5cfd7bc6a35d695ef6",
                 "shasum": ""
             },
             "require": {
@@ -54,7 +54,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Alejandro-AP00/space-traders-php-sdk/issues",
-                "source": "https://github.com/Alejandro-AP00/space-traders-php-sdk/tree/v0.7.0"
+                "source": "https://github.com/Alejandro-AP00/space-traders-php-sdk/tree/v0.7.1"
             },
             "funding": [
                 {
@@ -62,7 +62,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-06-22T22:47:55+00:00"
+            "time": "2024-06-25T02:01:39+00:00"
         },
         {
             "name": "brick/math",
@@ -2956,16 +2956,16 @@
         },
         {
             "name": "laracord/framework",
-            "version": "v2.2.4",
+            "version": "v2.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laracord/framework.git",
-                "reference": "ce78e0d6ca89105a8aff789a2fe53c1917d630dd"
+                "reference": "204d5ba0cacca36e9e3c35d95dec904f592666d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laracord/framework/zipball/ce78e0d6ca89105a8aff789a2fe53c1917d630dd",
-                "reference": "ce78e0d6ca89105a8aff789a2fe53c1917d630dd",
+                "url": "https://api.github.com/repos/laracord/framework/zipball/204d5ba0cacca36e9e3c35d95dec904f592666d7",
+                "reference": "204d5ba0cacca36e9e3c35d95dec904f592666d7",
                 "shasum": ""
             },
             "require": {
@@ -3022,7 +3022,7 @@
             ],
             "support": {
                 "issues": "https://github.com/laracord/framework/issues",
-                "source": "https://github.com/laracord/framework/tree/v2.2.4"
+                "source": "https://github.com/laracord/framework/tree/v2.2.5"
             },
             "funding": [
                 {
@@ -3030,7 +3030,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-06-19T01:34:31+00:00"
+            "time": "2024-06-24T11:14:47+00:00"
         },
         {
             "name": "laravel-zero/foundation",

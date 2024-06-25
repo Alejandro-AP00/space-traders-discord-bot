@@ -62,7 +62,13 @@ trait ManageFlightModeNavigation
             return false;
         }
 
-        $page = $this->getNav($this->message(), $response['nav']);
+        $page = $this->getNav(
+            $this
+                ->message()
+                ->authorIcon(null)
+                ->authorName($shipSymbol),
+            $response['nav']
+        );
 
         return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
     }

@@ -28,7 +28,7 @@ trait CanPaginate
         return $callback($message, $item);
     }
 
-    public function paginateFromArray(Message $message, array $results, ?string $emptyMessage, string $routeName, $callback, int $perPage = 1, int $page = 1): Message
+    public function paginateFromArray(Message $message, array $results, ?string $emptyMessage, string $routeName, $callback, int $perPage = 1, $page = 1): Message
     {
         $results = collect($results);
         if ($results->isEmpty()) {
@@ -36,6 +36,7 @@ trait CanPaginate
                 ->content($emptyMessage);
         }
 
+        $page = (int) $page;
         $items = $results->forPage($page, $perPage);
         $total_pages = ceil($results->count() / $perPage);
         $prev_page = $page === 1 ? null : $page - 1;

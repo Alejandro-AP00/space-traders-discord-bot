@@ -19,7 +19,7 @@ trait RefuelShips
 
         $units = (new Option($this->discord()))
             ->setName('units')
-            ->setDescription("The amount of fuel to fill in the ship's tanks. When not specified, the ship will be refueled to its maximum fuel capacity")
+            ->setDescription("The amount of fuel to fill in the ship's tanks.")
             ->setType(Option::STRING);
 
         $from_cargo = (new Option($this->discord()))
@@ -70,7 +70,7 @@ trait RefuelShips
                 'Waypoint' => $transaction->waypointSymbol,
                 'Price' => $transaction->totalPrice,
                 'Trade' => Str::title($transaction->tradeSymbol->value),
-                'Type' => $transaction->type,
+                'Type' => $transaction->type->value,
                 'Units' => $transaction->units,
                 'Price per unit' => $transaction->pricePerUnit,
                 'Date' => Date::parse($response['transaction']->timestamp)->toDiscord(),

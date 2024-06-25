@@ -43,7 +43,7 @@ trait DetailShips
     public function detailsShipsInteractions(): array
     {
         return [
-            'ship-details:{ship}:{?page}' => fn (Interaction $interaction, string $ship, $page = null) => $this->shipDetails($interaction, $ship, $interaction->data->values[0] ?? 'General', $page),
+            'ship-details:{ship}:{page?}' => fn (Interaction $interaction, string $ship, $page = null) => $this->shipDetails($interaction, $ship, $interaction->data->values[0] ?? 'General', $page),
         ];
     }
 
@@ -128,7 +128,7 @@ trait DetailShips
             ->title('Cargo')
             ->content(
                 collect($ship->cargo->inventory)->map(function (ShipCargoItem $cargoItem) {
-                    return vsprintf('- [**%s** - %s]: %s', [$cargoItem->symbol, $cargoItem->name, $cargoItem->units]);
+                    return vsprintf('- [**%s** - %s]: %s', [$cargoItem->symbol->value, $cargoItem->name, $cargoItem->units]);
                 }
                 )->join("\n")."\n"
             )

@@ -114,7 +114,7 @@ trait TradeWithCargo
             ->authorName('New Credit Balance: '.$response['agent']->credits)
             ->content(
                 collect($cargo->inventory)->map(function (ShipCargoItem $cargoItem) {
-                    return vsprintf('- [**%s** - %s]: %s', [$cargoItem->symbol, $cargoItem->name, $cargoItem->units]);
+                    return vsprintf('- [**%s** - %s]: %s', [$cargoItem->symbol->value, $cargoItem->name, $cargoItem->units]);
                 }
                 )->join("\n")."\n"
             )
@@ -153,7 +153,7 @@ trait TradeWithCargo
             ->authorName('New Credit Balance: '.$response['agent']->credits)
             ->content(
                 collect($cargo->inventory)->map(function (ShipCargoItem $cargoItem) {
-                    return vsprintf('- [**%s** - %s]: %s', [$cargoItem->symbol, $cargoItem->name, $cargoItem->units]);
+                    return vsprintf('- [**%s** - %s]: %s', [$cargoItem->symbol->value, $cargoItem->name, $cargoItem->units]);
                 }
                 )->join("\n")."\n"
             )

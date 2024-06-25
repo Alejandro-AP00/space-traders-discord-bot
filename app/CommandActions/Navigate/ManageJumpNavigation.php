@@ -55,6 +55,8 @@ trait ManageJumpNavigation
 
         $page = $this
             ->getNav($this->message(), $response['nav'])
+            ->authorIcon(null)
+            ->authorName($shipSymbol)
             ->title('Jumping to '.$waypointSymbol)
             ->fields([
                 "\u{200B}" => "\u{200B}",

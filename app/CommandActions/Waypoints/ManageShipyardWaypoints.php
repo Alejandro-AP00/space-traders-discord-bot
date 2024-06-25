@@ -23,11 +23,18 @@ trait ManageShipyardWaypoints
             ->setType(Option::STRING)
             ->setRequired(true);
 
+        $system_symbol = (new Option($this->discord()))
+            ->setName('system')
+            ->setDescription('The Symbol of the system the waypoint is at')
+            ->setType(Option::STRING)
+            ->setRequired(true);
+
         return [
             (new Option($this->discord()))
                 ->setName('shipyard')
                 ->setDescription('Gets the shipyard details of a waypoint')
                 ->setType(Option::SUB_COMMAND)
+                ->addOption($system_symbol)
                 ->addOption($waypoint_symbol),
         ];
     }
@@ -35,19 +42,22 @@ trait ManageShipyardWaypoints
     public function handleManageShipyardWaypoints(Interaction $interaction): void
     {
         $this->waypointSymbol = $this->value('shipyard.waypoint');
+        $this->systemSymbol = $this->value('shipyard.system');
         $this->shipyard($interaction, $this->waypointSymbol);
     }
 
     public function manageShipyardWaypointsInteractions(): array
     {
         return [
-            'waypoint-shipyard:{waypoint}:{page?}' => fn (Interaction $interaction, string $waypoint, $page = 1) => $this->shipyard($interaction, $waypoint, $page, $interaction->data->values[0] ?? 'General'),
+            'waypoint-shipyard:{waypoint}:{menu?}:{page?}' => fn (Interaction $interaction, string $waypoint, $menu = 'General', $page = 1) => $this->shipyard($interaction, $waypoint, $page, $interaction->data->values[0] ?? $menu),
             'purchase-ship:{waypoint}:{ship}' => fn (Interaction $interaction, string $waypoint, string $ship) => $this->purchaseShip($interaction, $waypoint, $ship),
         ];
     }
 
     public function shipyard(Interaction $interaction, string $waypoint, $pageNumber = 1, $option = 'General')
     {
+        //        dump($pageNumber);
+        //        dump($option);
         $space_traders = $this->getSpaceTraders($interaction);
         try {
             $shipyard = $space_traders->shipyard($this->systemSymbol, $waypoint);
@@ -78,9 +88,9 @@ trait ManageShipyardWaypoints
                     })->take(20)->toArray(), false),
             'Ships' => $this->paginateFromArray(
                 message: $page,
-                results: $shipyard->transactions,
+                results: $shipyard->ships,
                 emptyMessage: 'No Ships at Waypoint or Not Docked',
-                routeName: "waypoint-shipyard:{$waypoint}",
+                routeName: "waypoint-shipyard:{$waypoint}:{$option}",
                 callback: function (Message $message, Collection $results) use ($waypoint) {
                     /**
                      * @var $ship ShipyardShip
@@ -112,6 +122,7 @@ trait ManageShipyardWaypoints
     {
         $space_traders = $this->getSpaceTraders($interaction);
         try {
+            $ship = ShipType::from($ship);
             $response = $space_traders->purchaseShip($ship, $waypoint);
         } catch (\Exception $exception) {
             $this->sendError($exception, $interaction);
@@ -129,7 +140,7 @@ trait ManageShipyardWaypoints
                 'Transaction' => "\u{200B}",
                 'Waypoint' => $waypoint,
                 'Price' => $response['transaction']->price,
-                'Date' => Date::parse($response['transaction']->timestamp)->toDiscord(),
+                'Date' => Date::parse($response['transaction']->timestamp)->toDiscord('F'),
             ])
             ->field("\u{200B}", "\u{200B}", false)
             ->fields([

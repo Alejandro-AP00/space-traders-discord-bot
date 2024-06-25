@@ -57,6 +57,8 @@ trait ManageWaypointNavigation
         $fuel = $response['fuel'];
 
         $page = $this->getNav($this->message(), $response['nav'])
+            ->authorIcon(null)
+            ->authorName($shipSymbol)
             ->title('Navigating to '.$waypointSymbol)
             ->field("\u{200B}", "\u{200B}", false)
             ->fields([
@@ -64,7 +66,6 @@ trait ManageWaypointNavigation
                 'Fuel Consumed' => isset($fuel->consumed) ? $fuel->consumed->amount.' at '.Date::parse($fuel->consumed->timestamp)->toDiscord() : 'N/A',
             ], false)
             ->field("\u{200B}", "\u{200B}", false)
-            ->authorName('New Credit Balance: '.$response['agent']->credits)
             ->fields(collect($response['events'])->mapWithKeys(function (ShipConditionEvent $event) {
                 return ["[{$event->symbol->value}]: {$event->component->value} - {$event->name}" => $event->description];
             })->toArray());

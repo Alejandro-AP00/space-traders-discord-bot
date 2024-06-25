@@ -44,7 +44,13 @@ trait ManageOrbitNavigation
             return false;
         }
 
-        $page = $this->getNav($this->message(), $response['nav'])->title('Ship in Orbit');
+        $page = $this->getNav(
+            $this
+                ->message()
+                ->authorIcon(null)
+                ->authorName($shipSymbol),
+            $response['nav']
+        )->title('Ship in Orbit');
 
         return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
     }

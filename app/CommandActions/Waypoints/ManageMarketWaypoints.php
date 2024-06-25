@@ -22,11 +22,18 @@ trait ManageMarketWaypoints
             ->setType(Option::STRING)
             ->setRequired(true);
 
+        $system_symbol = (new Option($this->discord()))
+            ->setName('system')
+            ->setDescription('The Symbol of the system the waypoint is at')
+            ->setType(Option::STRING)
+            ->setRequired(true);
+
         return [
             (new Option($this->discord()))
                 ->setName('market')
                 ->setDescription('Gets the Market details of a waypoint')
                 ->setType(Option::SUB_COMMAND)
+                ->addOption($system_symbol)
                 ->addOption($waypoint_symbol),
         ];
     }
@@ -34,13 +41,14 @@ trait ManageMarketWaypoints
     public function handleManageMarketWaypoints(Interaction $interaction): void
     {
         $this->waypointSymbol = $this->value('market.waypoint');
+        $this->systemSymbol = $this->value('shipyard.system');
         $this->market($interaction, $this->waypointSymbol);
     }
 
     public function manageMarketWaypointsInteractions(): array
     {
         return [
-            'waypoint-market:{waypoint}:{page?}' => fn (Interaction $interaction, string $waypoint, $page = 1) => $this->market($interaction, $waypoint, $page, $interaction->data->values[0] ?? 'General'),
+            'waypoint-market:{waypoint}:{page?}' => fn (Interaction $interaction, string $waypoint, $page = 1) => $this->market($interaction, $waypoint, $page, $interaction->data->values[0] ?? 'Exports'),
         ];
     }
 

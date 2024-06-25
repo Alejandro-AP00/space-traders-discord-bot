@@ -50,6 +50,7 @@ class Ships extends SlashCommand
             ...$this->manageMountsShipsOptions(),
             ...$this->scrapShipsOptions(),
             ...$this->repairShipsOptions(),
+            ...$this->refuelShipsOptions(),
         ];
     }
 
@@ -69,6 +70,7 @@ class Ships extends SlashCommand
             'mounts' => $this->handleManageMountsShips($interaction),
             'scrap' => $this->handleScrapShips($interaction),
             'repair' => $this->handleRepairShips($interaction),
+            'refuel' => $this->handleRefuelShips($interaction),
         };
     }
 

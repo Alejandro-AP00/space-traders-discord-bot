@@ -56,6 +56,8 @@ trait ManageWarpNavigation
         $fuel = $response['fuel'];
 
         $page = $this->getNav($this->message(), $response['nav'])
+            ->authorIcon(null)
+            ->authorName($shipSymbol)
             ->title('Warping to '.$waypointSymbol)
             ->field("\u{200B}", "\u{200B}", false)
             ->fields([

@@ -44,7 +44,13 @@ trait ManageDockNavigation
             return false;
         }
 
-        $page = $this->getNav($this->message(), $response['nav'])->title('Ship in Dock');
+        $page = $this->getNav(
+            $this
+                ->message()
+                ->authorIcon(null)
+                ->authorName($shipSymbol),
+            $response['nav']
+        )->title('Ship in Dock');
 
         return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
     }
