@@ -38,18 +38,16 @@ trait ListShips
         }
 
         $page = $this->paginate($this->message(), $ships, "You don't have any ships", 'ship', function (Message $message, Ship $item) {
-            return $message->authorIcon(null)
+            $message = $message->authorIcon(null)
                 ->authorName($item->symbol)
                 ->fields([
                     'Name' => $item->registration->name,
                     'Role' => Str::title($item->registration->role->value),
                     'Faction' => Str::title($item->registration->factionSymbol->value),
                 ])
-                ->fields([
-                    "\u{200B}" => "\u{200B}",
-                    'Cooldown' => $item->cooldown->remainingSeconds === 0 ? 'N/A' : $item->cooldown->remainingSeconds.'s Remaining',
-                ], false)
                 ->button('Details', style: Button::STYLE_SECONDARY, route: 'ship-details:'.$item->symbol);
+
+            return $this->cooldown($message, $item->cooldown);
         });
 
         return $page->editOrReply($interaction);

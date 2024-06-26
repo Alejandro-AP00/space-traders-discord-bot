@@ -139,13 +139,11 @@ trait ManageScanShips
 
             return false;
         }
-        $message = $this->message()->fields([
-            "\u{200B}" => "\u{200B}",
-            'Cooldown' => $response['cooldown']->remainingSeconds === 0 ? 'N/A' : $response['cooldown']->remainingSeconds.'s Remaining',
-        ], false);
+
+        $page = $this->cooldown($this->message(), $response['cooldown']);
 
         $page = $this->paginateFromArray(
-            $message,
+            $page,
             $response['surveys'],
             'No surveys',
             'survey',
@@ -184,13 +182,10 @@ trait ManageScanShips
 
             return false;
         }
-        $message = $this->message()->fields([
-            'Cooldown' => $response['cooldown']->remainingSeconds === 0 ? 'N/A' : $response['cooldown']->remainingSeconds.'s Remaining',
-            "\u{200B}" => "\u{200B}",
-        ], false);
+        $page = $this->cooldown($this->message(), $response['cooldown']);
 
         $page = $this->paginateFromArray(
-            $message,
+            $page,
             $response['systems'],
             'No systems',
             'systems',
@@ -230,13 +225,10 @@ trait ManageScanShips
 
             return false;
         }
-        $message = $this->message()->fields([
-            'Cooldown' => $response['cooldown']->remainingSeconds === 0 ? 'N/A' : $response['cooldown']->remainingSeconds.'s Remaining',
-            "\u{200B}" => "\u{200B}",
-        ], false);
+        $page = $this->cooldown($this->message(), $response['cooldown']);
 
         $page = $this->paginateFromArray(
-            $message,
+            $page,
             $response['waypoints'],
             'No waypoints',
             'waypoints',
@@ -286,13 +278,10 @@ trait ManageScanShips
 
             return false;
         }
-        $message = $this->message()->fields([
-            'Cooldown' => $response['cooldown']->remainingSeconds === 0 ? 'N/A' : $response['cooldown']->remainingSeconds.'s Remaining',
-            "\u{200B}" => "\u{200B}",
-        ], false);
+        $page = $this->cooldown($this->message(), $response['cooldown']);
 
         $page = $this->paginateFromArray(
-            $message,
+            $page,
             $response['ships'],
             'No ships',
             'ships',

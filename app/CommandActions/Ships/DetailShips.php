@@ -172,17 +172,15 @@ trait DetailShips
 
     private function getGeneral(Message $page, Ship $ship): Message
     {
-        return $page
+        $page = $page
             ->title('General')
             ->fields([
                 'Name' => $ship->registration->name,
                 'Role' => Str::title($ship->registration->role->value),
                 'Faction' => Str::title($ship->registration->factionSymbol->value),
-            ])
-            ->fields([
-                "\u{200B}" => "\u{200B}",
-                'Cooldown' => $ship->cooldown->remainingSeconds === 0 ? 'N/A' : $ship->cooldown->remainingSeconds.'s Remaining',
-            ], false);
+            ]);
+
+        return $this->cooldown($page, $ship->cooldown);
     }
 
     private function getNav(Message $page, Ship $ship): Message

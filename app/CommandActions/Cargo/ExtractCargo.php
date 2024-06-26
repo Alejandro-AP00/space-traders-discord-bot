@@ -2,7 +2,6 @@
 
 namespace App\CommandActions\Cargo;
 
-use AlejandroAPorras\SpaceTraders\Resources\ShipConditionEvent;
 use Discord\Parts\Interactions\Command\Option;
 use Discord\Parts\Interactions\Interaction;
 
@@ -71,14 +70,10 @@ trait ExtractCargo
                 'Yield Type' => $extraction->yield->symbol->value,
                 'Yield Amount' => $extraction->yield->units,
             ])
-            ->fields([
-                "\u{200B}" => "\u{200B}",
-                'Cooldown' => $response['cooldown']->remainingSeconds === 0 ? 'N/A' : $response['cooldown']->remainingSeconds.'s Remaining',
-            ], false)
-            ->fields(["\u{200B}" => "\u{200B}"], false)
-            ->fields(collect($response['events'])->mapWithKeys(function (ShipConditionEvent $event) {
-                return ["[{$event->symbol->value}]: {$event->component->value} - {$event->name}" => $event->description];
-            })->toArray());
+            ->fields(["\u{200B}" => "\u{200B}"], false);
+
+        $page = $this->cooldown($page, $response['cooldown']);
+        $page = $this->shipEvent($page, $response['events']);
 
         return $page->editOrReply($interaction);
     }
@@ -111,14 +106,10 @@ trait ExtractCargo
                 'Yield Type' => $extraction->yield->symbol->value,
                 'Yield Amount' => $extraction->yield->units,
             ])
-            ->fields([
-                "\u{200B}" => "\u{200B}",
-                'Cooldown' => $response['cooldown']->remainingSeconds === 0 ? 'N/A' : $response['cooldown']->remainingSeconds.'s Remaining',
-            ], false)
-            ->fields(["\u{200B}" => "\u{200B}"], false)
-            ->fields(collect($response['events'])->mapWithKeys(function (ShipConditionEvent $event) {
-                return ["[{$event->symbol->value}]: {$event->component->value} - {$event->name}" => $event->description];
-            })->toArray());
+            ->fields(["\u{200B}" => "\u{200B}"], false);
+
+        $page = $this->cooldown($page, $response['cooldown']);
+        $page = $this->shipEvent($page, $response['events']);
 
         return $page->editOrReply($interaction);
     }
