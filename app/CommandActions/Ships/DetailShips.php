@@ -43,7 +43,7 @@ trait DetailShips
     public function detailsShipsInteractions(): array
     {
         return [
-            'ship-details:{ship}:{page?}' => fn (Interaction $interaction, string $ship, $page = null) => $this->shipDetails($interaction, $ship, $interaction->data->values[0] ?? 'General', $page),
+            'ship-details:{ship}:{menu?}:{page?}' => fn (Interaction $interaction, string $ship, $menu = 'General', $page = null) => $this->shipDetails($interaction, $ship, $interaction->data->values[0] ?? $menu, $page),
         ];
     }
 
@@ -80,21 +80,21 @@ trait DetailShips
             'Reactor' => $this->getReactor($page, $ship),
             'Engine' => $this->getEngine($page, $ship),
             'Crew' => $this->getCrew($page, $ship),
-            'Mounts' => $this->getMounts($page, $ship, $pageNumber),
-            'Modules' => $this->getModules($page, $ship, $pageNumber),
+            'Mounts' => $this->getMounts($page, $ship, $option, $pageNumber),
+            'Modules' => $this->getModules($page, $ship, $option, $pageNumber),
             'Cargo' => $this->getCargo($page, $ship),
         };
 
         return $page->editOrReply($interaction);
     }
 
-    private function getMounts(Message $page, Ship $ship, $pageNumber = 1): Message
+    private function getMounts(Message $page, Ship $ship, $menu, $pageNumber = 1): Message
     {
         return $this->paginateFromArray(
             message: $page,
             results: $ship->mounts,
             emptyMessage: 'No Mounts',
-            routeName: "ship-details:{$ship->symbol}",
+            routeName: "ship-details:{$ship->symbol}:{$menu}",
             callback: function (Message $message, $results) {
                 /**
                  * @var $mount ShipMount
@@ -138,13 +138,13 @@ trait DetailShips
             ]);
     }
 
-    private function getModules(Message $page, Ship $ship, $pageNumber = 1): Message
+    private function getModules(Message $page, Ship $ship, $menu, $pageNumber = 1): Message
     {
         return $this->paginateFromArray(
             message: $page,
             results: $ship->modules,
             emptyMessage: 'No modules',
-            routeName: "ship-details:{$ship->symbol}",
+            routeName: "ship-details:{$ship->symbol}:{$menu}",
             callback: function (Message $message, $results) {
                 /**
                  * @var $module ShipModule
