@@ -147,12 +147,15 @@ trait TradeWithCargo
             return false;
         }
 
-        $cargo = $response['cargo'];
         $transaction = $response['transaction'];
 
         $page = $this->message()
             ->authorIcon(null)
-            ->authorName($shipSymbol)
+            ->authorName($shipSymbol);
+
+        $page = $this->cargoDetails($page, $response['cargo']);
+
+        $page = $page
             ->fields([
                 'Transaction' => "\u{200B}",
                 'Waypoint' => $transaction->waypointSymbol,
@@ -161,7 +164,6 @@ trait TradeWithCargo
             ]);
 
         $page = $this->newBalance($page, $response['agent']);
-        $page = $this->cargoDetails($page, $response['cargo']);
 
         return $page->editOrReply($interaction);
     }

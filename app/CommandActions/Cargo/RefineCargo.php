@@ -61,7 +61,11 @@ trait RefineCargo
 
         $page = $this->message()
             ->authorIcon(null)
-            ->authorName($shipSymbol)
+            ->authorName($shipSymbol);
+
+        $page = $this->cargoDetails($page, $response['cargo']);
+
+        $page = $page
             ->fields([
                 'Produced' => collect($response['produced'])->map(fn (ShipRefineGood $shipRefineGood) => "[{$shipRefineGood->tradeSymbol->value}]: {$shipRefineGood->units}")->join("\n"),
                 'Consumed' => collect($response['consumed'])->map(fn (ShipRefineGood $shipRefineGood) => "[{$shipRefineGood->tradeSymbol->value}]: {$shipRefineGood->units}")->join("\n"),
@@ -72,8 +76,6 @@ trait RefineCargo
                 'Price' => $response['transaction']->price,
                 'Date' => Date::parse($response['transaction']->timestamp)->toDiscord(),
             ]);
-
-        $page = $this->cargoDetails($page, $response['cargo']);
 
         return $page->editOrReply($interaction);
     }
