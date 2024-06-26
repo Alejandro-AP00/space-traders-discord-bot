@@ -53,7 +53,6 @@ trait RepairShips
 
         $page = $this->message()
             ->authorIcon(null)
-            ->authorName('New Credit Balance: '.$response['agent']->credits)
             ->title('Repaired '.$shipSymbol)
             ->fields([
                 'Transaction' => "\u{200B}",
@@ -61,6 +60,8 @@ trait RepairShips
                 'Price' => $transaction->totalPrice,
                 'Date' => Date::parse($response['transaction']->timestamp)->toDiscord(),
             ]);
+
+        $page = $this->newBalance($page, $response['agent']);
 
         return $page->editOrReply($interaction);
     }

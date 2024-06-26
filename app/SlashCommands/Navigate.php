@@ -11,6 +11,7 @@ use App\CommandActions\Navigate\ManageWarpNavigation;
 use App\CommandActions\Navigate\ManageWaypointNavigation;
 use App\Traits\CanPaginate;
 use App\Traits\HasAgent;
+use App\Traits\HasMessageUtils;
 use Carbon\Carbon;
 use Discord\Parts\Interactions\Interaction;
 use Illuminate\Support\Str;
@@ -21,6 +22,7 @@ class Navigate extends SlashCommand
 {
     use CanPaginate,
         HasAgent,
+        HasMessageUtils,
         ManageDockNavigation,
         ManageFlightModeNavigation,
         ManageJumpNavigation,

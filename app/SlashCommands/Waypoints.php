@@ -10,6 +10,7 @@ use App\CommandActions\Waypoints\ManageMarketWaypoints;
 use App\CommandActions\Waypoints\ManageShipyardWaypoints;
 use App\Traits\CanPaginate;
 use App\Traits\HasAgent;
+use App\Traits\HasMessageUtils;
 use Laracord\Commands\SlashCommand;
 
 class Waypoints extends SlashCommand
@@ -17,6 +18,7 @@ class Waypoints extends SlashCommand
     use CanPaginate,
         DetailWaypoints,
         HasAgent,
+        HasMessageUtils,
         ListWaypoints,
         ManageConstructionWaypoints,
         ManageJumpGateWaypoints,

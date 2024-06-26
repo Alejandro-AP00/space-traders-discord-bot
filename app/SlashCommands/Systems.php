@@ -5,6 +5,7 @@ namespace App\SlashCommands;
 use AlejandroAPorras\SpaceTraders\Resources\System;
 use App\Traits\CanPaginate;
 use App\Traits\HasAgent;
+use App\Traits\HasMessageUtils;
 use Discord\Parts\Interactions\Command\Option;
 use Discord\Parts\Interactions\Interaction;
 use Illuminate\Support\Str;
@@ -13,7 +14,7 @@ use Laracord\Discord\Message;
 
 class Systems extends SlashCommand
 {
-    use CanPaginate, HasAgent;
+    use CanPaginate, HasAgent, HasMessageUtils;
 
     /**
      * The command name.

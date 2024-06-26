@@ -3,7 +3,6 @@
 namespace App\CommandActions\Cargo;
 
 use AlejandroAPorras\SpaceTraders\Enums\TradeGoodSymbol;
-use AlejandroAPorras\SpaceTraders\Resources\ShipCargoItem;
 use Discord\Parts\Interactions\Command\Choice;
 use Discord\Parts\Interactions\Command\Option;
 use Discord\Parts\Interactions\Interaction;
@@ -93,20 +92,8 @@ trait TransferCargo
             return false;
         }
 
-        $cargo = $response['cargo'];
-
-        $page = $this->message()
-            ->authorIcon(null)
-            ->content(
-                collect($cargo->inventory)->map(function (ShipCargoItem $cargoItem) {
-                    return vsprintf('- [**%s** - %s]: %s', [$cargoItem->symbol->value, $cargoItem->name, $cargoItem->units]);
-                }
-                )->join("\n")."\n"
-            )
-            ->fields([
-                'Capacity' => $cargo->capacity,
-                'Units' => $cargo->units,
-            ]);
+        $page = $this->message()->authorIcon(null);
+        $page = $this->cargoDetails($page, $response['cargo']);
 
         return $page->editOrReply($interaction);
     }

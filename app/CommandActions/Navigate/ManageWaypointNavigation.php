@@ -2,7 +2,6 @@
 
 namespace App\CommandActions\Navigate;
 
-use AlejandroAPorras\SpaceTraders\Resources\ShipConditionEvent;
 use Discord\Parts\Interactions\Command\Option;
 use Discord\Parts\Interactions\Interaction;
 use Illuminate\Support\Facades\Date;
@@ -65,10 +64,9 @@ trait ManageWaypointNavigation
                 'Fuel' => $fuel->current.'/'.$fuel->capacity,
                 'Fuel Consumed' => isset($fuel->consumed) ? $fuel->consumed->amount.' at '.Date::parse($fuel->consumed->timestamp)->toDiscord() : 'N/A',
             ], false)
-            ->field("\u{200B}", "\u{200B}", false)
-            ->fields(collect($response['events'])->mapWithKeys(function (ShipConditionEvent $event) {
-                return ["[{$event->symbol->value}]: {$event->component->value} - {$event->name}" => $event->description];
-            })->toArray());
+            ->field("\u{200B}", "\u{200B}", false);
+
+        $page = $this->shipEvent($page, $response['events']);
 
         return $page->editOrReply($interaction);
     }

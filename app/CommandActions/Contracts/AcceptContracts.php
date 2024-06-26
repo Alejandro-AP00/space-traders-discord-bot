@@ -50,8 +50,8 @@ trait AcceptContracts
             return false;
         }
 
-        $page = $this->contractPage($this->message(), $response['contract'])
-            ->authorName('New Credit Balance: '.$response['agent']->credits);
+        $page = $this->contractPage($this->message(), $response['contract']);
+        $page = $this->newBalance($page, $response['agent']);
 
         return $page->editOrReply($interaction);
     }

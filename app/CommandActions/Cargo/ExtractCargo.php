@@ -2,7 +2,6 @@
 
 namespace App\CommandActions\Cargo;
 
-use AlejandroAPorras\SpaceTraders\Resources\ShipCargoItem;
 use AlejandroAPorras\SpaceTraders\Resources\ShipConditionEvent;
 use Discord\Parts\Interactions\Command\Option;
 use Discord\Parts\Interactions\Interaction;
@@ -57,23 +56,16 @@ trait ExtractCargo
             return false;
         }
 
-        $cargo = $response['cargo'];
         $extraction = $response['extraction'];
 
         $page = $this->message()
             ->authorIcon(null)
             ->authorName($shipSymbol)
-            ->title('Extracted Resources')
-            ->content(
-                collect($cargo->inventory)->map(function (ShipCargoItem $cargoItem) {
-                    return vsprintf('- [**%s** - %s]: %s', [$cargoItem->symbol->value, $cargoItem->name, $cargoItem->units]);
-                }
-                )->join("\n")."\n"
-            )
-            ->fields([
-                'Capacity' => $cargo->capacity,
-                'Units' => $cargo->units,
-            ])
+            ->title('Extracted Resources');
+
+        $page = $this->cargoDetails($page, $response['cargo']);
+
+        $page = $page
             ->fields(["\u{200B}" => "\u{200B}"], false)
             ->fields([
                 'Yield Type' => $extraction->yield->symbol->value,
@@ -104,23 +96,16 @@ trait ExtractCargo
             return false;
         }
 
-        $cargo = $response['cargo'];
         $extraction = $response['siphon'];
 
         $page = $this->message()
             ->authorIcon(null)
             ->authorName($shipSymbol)
-            ->title('Siphoned Resources')
-            ->content(
-                collect($cargo->inventory)->map(function (ShipCargoItem $cargoItem) {
-                    return vsprintf('- **%s**: %s', [$cargoItem->symbol->value, $cargoItem->units]);
-                }
-                )->join("\n")."\n"
-            )
-            ->fields([
-                'Capacity' => $cargo->capacity,
-                'Units' => $cargo->units,
-            ])
+            ->title('Siphoned Resources');
+
+        $page = $this->cargoDetails($page, $response['cargo']);
+
+        $page = $page
             ->fields(["\u{200B}" => "\u{200B}"], false)
             ->fields([
                 'Yield Type' => $extraction->yield->symbol->value,

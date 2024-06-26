@@ -59,10 +59,6 @@ trait ManageJumpNavigation
             ->authorName($shipSymbol)
             ->title('Jumping to '.$waypointSymbol)
             ->fields([
-                "\u{200B}" => "\u{200B}",
-                'Cooldown' => $response['cooldown']->remainingSeconds === 0 ? 'N/A' : $response['cooldown']->remainingSeconds.'s Remaining',
-            ], false)
-            ->fields([
                 'Ship Symbol' => $response['transaction']->shipSymbol,
                 'Trade Good' => Str::title($response['transaction']->tradeSymbol->value),
                 'Transaction Type' => Str::title($response['transaction']->type->value),
@@ -70,6 +66,8 @@ trait ManageJumpNavigation
                 'Price Per Unit' => $response['transaction']->pricePerUnit,
                 'Total Price' => $response['transaction']->totalPrice,
             ]);
+
+        $page = $this->cooldown($page, $response['cooldown']);
 
         return $page->editOrReply($interaction);
     }

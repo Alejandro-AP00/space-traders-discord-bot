@@ -153,16 +153,6 @@ trait TradeWithCargo
         $page = $this->message()
             ->authorIcon(null)
             ->authorName($shipSymbol)
-            ->content(
-                collect($cargo->inventory)->map(function (ShipCargoItem $cargoItem) {
-                    return vsprintf('- [**%s** - %s]: %s', [$cargoItem->symbol->value, $cargoItem->name, $cargoItem->units]);
-                }
-                )->join("\n")."\n"
-            )
-            ->fields([
-                'Capacity' => $cargo->capacity,
-                'Units' => $cargo->units,
-            ])
             ->fields([
                 'Transaction' => "\u{200B}",
                 'Waypoint' => $transaction->waypointSymbol,
@@ -171,6 +161,7 @@ trait TradeWithCargo
             ]);
 
         $page = $this->newBalance($page, $response['agent']);
+        $page = $this->cargoDetails($page, $response['cargo']);
 
         return $page->editOrReply($interaction);
     }

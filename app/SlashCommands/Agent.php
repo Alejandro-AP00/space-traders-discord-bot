@@ -3,12 +3,13 @@
 namespace App\SlashCommands;
 
 use App\Traits\HasAgent;
+use App\Traits\HasMessageUtils;
 use Discord\Parts\Interactions\Interaction;
 use Laracord\Commands\SlashCommand;
 
 class Agent extends SlashCommand
 {
-    use HasAgent;
+    use HasAgent, HasMessageUtils;
 
     /**
      * The command name.

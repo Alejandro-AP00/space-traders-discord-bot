@@ -2,7 +2,6 @@
 
 namespace App\CommandActions\Ships;
 
-use AlejandroAPorras\SpaceTraders\Resources\ShipCargoItem;
 use Discord\Builders\Components\Button;
 use Discord\Parts\Interactions\Command\Option;
 use Discord\Parts\Interactions\Interaction;
@@ -69,23 +68,11 @@ trait ManageMountsShips
             return false;
         }
 
-        $cargo = $response['cargo'];
         $transaction = $response['transaction'];
 
         $page = $this->message()
             ->authorIcon(null)
-            ->authorName('New Credit Balance: '.$response['agent']->credits)
             ->title($shipSymbol)
-            ->content(
-                collect($cargo->inventory)->map(function (ShipCargoItem $cargoItem) {
-                    return vsprintf('- [**%s** - %s]: %s', [$cargoItem->symbol->value, $cargoItem->name, $cargoItem->units]);
-                }
-                )->join("\n")."\n"
-            )
-            ->fields([
-                'Capacity' => $cargo->capacity,
-                'Units' => $cargo->units,
-            ])
             ->fields([
                 'Transaction' => "\u{200B}",
                 'Waypoint' => $transaction->waypointSymbol,
@@ -93,6 +80,9 @@ trait ManageMountsShips
                 'Date' => Date::parse($response['transaction']->timestamp)->toDiscord(),
             ])
             ->button('Ship Details', style: Button::STYLE_SECONDARY, route: 'ship-details:'.$shipSymbol);
+
+        $page = $this->newBalance($page, $response['agent']);
+        $page = $this->cargoDetails($page, $response['cargo']);
 
         return $page->editOrReply($interaction);
     }
@@ -108,23 +98,11 @@ trait ManageMountsShips
             return false;
         }
 
-        $cargo = $response['cargo'];
         $transaction = $response['transaction'];
 
         $page = $this->message()
             ->authorIcon(null)
-            ->authorName('New Credit Balance: '.$response['agent']->credits)
             ->title($shipSymbol)
-            ->content(
-                collect($cargo->inventory)->map(function (ShipCargoItem $cargoItem) {
-                    return vsprintf('- [**%s** - %s]: %s', [$cargoItem->symbol->value, $cargoItem->name, $cargoItem->units]);
-                }
-                )->join("\n")."\n"
-            )
-            ->fields([
-                'Capacity' => $cargo->capacity,
-                'Units' => $cargo->units,
-            ])
             ->fields([
                 'Transaction' => "\u{200B}",
                 'Waypoint' => $transaction->waypointSymbol,
@@ -132,6 +110,9 @@ trait ManageMountsShips
                 'Date' => Date::parse($response['transaction']->timestamp)->toDiscord(),
             ])
             ->button('Ship Details', style: Button::STYLE_SECONDARY, route: 'ship-details:'.$shipSymbol);
+
+        $page = $this->newBalance($page, $response['agent']);
+        $page = $this->cargoDetails($page, $response['cargo']);
 
         return $page->editOrReply($interaction);
     }

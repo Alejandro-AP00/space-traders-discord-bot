@@ -59,7 +59,6 @@ trait RefuelShips
 
         $page = $this->message()
             ->authorIcon(null)
-            ->authorName('New Credit Balance: '.$response['agent']->credits)
             ->title('Refueled '.$shipSymbol)
             ->fields([
                 'Fuel' => $fuel->current.'/'.$fuel->capacity,
@@ -75,6 +74,8 @@ trait RefuelShips
                 'Price per unit' => $transaction->pricePerUnit,
                 'Date' => Date::parse($response['transaction']->timestamp)->toDiscord(),
             ]);
+
+        $page = $this->newBalance($page, $response['agent']);
 
         return $page->editOrReply($interaction);
     }

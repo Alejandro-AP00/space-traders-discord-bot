@@ -11,6 +11,7 @@ use App\CommandActions\Ships\RepairShips;
 use App\CommandActions\Ships\ScrapShips;
 use App\Traits\CanPaginate;
 use App\Traits\HasAgent;
+use App\Traits\HasMessageUtils;
 use Laracord\Commands\SlashCommand;
 
 class Ships extends SlashCommand
@@ -18,6 +19,7 @@ class Ships extends SlashCommand
     use CanPaginate,
         DetailShips,
         HasAgent,
+        HasMessageUtils,
         ListShips,
         ManageMountsShips,
         ManageScanShips,

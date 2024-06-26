@@ -129,11 +129,6 @@ trait ListWaypoints
                 ->button('Details', style: Button::STYLE_SECONDARY, route: "waypoint-details:{$waypoint->symbol}");
         });
 
-        //        dump($interaction->user->id);
-        //        dump($interaction->message?->user_id);
-
         return $page->editOrReply($interaction);
-
-        //        return $page->editOrReply($interaction);
     }
 }

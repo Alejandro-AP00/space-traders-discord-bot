@@ -11,6 +11,7 @@ use App\CommandActions\Contracts\ListContracts;
 use App\CommandActions\Contracts\NegotiateContracts;
 use App\Traits\CanPaginate;
 use App\Traits\HasAgent;
+use App\Traits\HasMessageUtils;
 use Illuminate\Support\Facades\Date;
 use Laracord\Commands\SlashCommand;
 use Laracord\Discord\Message;
@@ -23,6 +24,7 @@ class Contracts extends SlashCommand
         DetailContracts,
         FulfillContracts,
         HasAgent,
+        HasMessageUtils,
         ListContracts,
         NegotiateContracts;
 
@@ -115,7 +117,6 @@ class Contracts extends SlashCommand
     {
         return $message
             ->authorIcon(null)
-            ->authorName(null)
             ->footerText($contract->id)
             ->title(str($contract->type->value)->title().' Contract')
             ->fields([
