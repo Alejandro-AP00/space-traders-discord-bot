@@ -61,6 +61,9 @@ trait ExtractCargo
         $extraction = $response['extraction'];
 
         $page = $this->message()
+            ->authorIcon(null)
+            ->authorName($shipSymbol)
+            ->title('Extracted Resources')
             ->content(
                 collect($cargo->inventory)->map(function (ShipCargoItem $cargoItem) {
                     return vsprintf('- [**%s** - %s]: %s', [$cargoItem->symbol->value, $cargoItem->name, $cargoItem->units]);
@@ -107,7 +110,7 @@ trait ExtractCargo
         $page = $this->message()
             ->authorIcon(null)
             ->authorName($shipSymbol)
-            ->title('Updated Cargo')
+            ->title('Siphoned Resources')
             ->content(
                 collect($cargo->inventory)->map(function (ShipCargoItem $cargoItem) {
                     return vsprintf('- **%s**: %s', [$cargoItem->symbol->value, $cargoItem->units]);

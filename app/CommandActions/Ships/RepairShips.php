@@ -54,7 +54,7 @@ trait RepairShips
         $page = $this->message()
             ->authorIcon(null)
             ->authorName('New Credit Balance: '.$response['agent']->credits)
-            ->title('Scrapped '.$shipSymbol)
+            ->title('Repaired '.$shipSymbol)
             ->fields([
                 'Transaction' => "\u{200B}",
                 'Waypoint' => $transaction->waypointSymbol,
@@ -80,7 +80,7 @@ trait RepairShips
 
         $page = $this->message()
             ->authorIcon(null)
-            ->title('Scrap '.$shipSymbol)
+            ->title('Repair '.$shipSymbol.'?')
             ->fields([
                 'Transaction' => "\u{200B}",
                 'Waypoint' => $transaction->waypointSymbol,

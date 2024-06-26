@@ -49,15 +49,13 @@ trait ManageShipyardWaypoints
     public function manageShipyardWaypointsInteractions(): array
     {
         return [
-            'waypoint-shipyard:{waypoint}:{menu?}:{page?}' => fn (Interaction $interaction, string $waypoint, $menu = 'General', $page = 1) => $this->shipyard($interaction, $waypoint, $page, $interaction->data->values[0] ?? $menu),
+            'waypoint-shipyard:{waypoint}:{menu?}:{page?}' => fn (Interaction $interaction, string $waypoint, $menu = 'General', $page = 1) => $this->shipyard($interaction, $waypoint, $interaction->data->values[0] ?? $menu, $page),
             'purchase-ship:{waypoint}:{ship}' => fn (Interaction $interaction, string $waypoint, string $ship) => $this->purchaseShip($interaction, $waypoint, $ship),
         ];
     }
 
-    public function shipyard(Interaction $interaction, string $waypoint, $pageNumber = 1, $option = 'General')
+    public function shipyard(Interaction $interaction, string $waypoint, $option = 'General', $pageNumber = 1)
     {
-        //        dump($pageNumber);
-        //        dump($option);
         $space_traders = $this->getSpaceTraders($interaction);
         try {
             $shipyard = $space_traders->shipyard($this->systemSymbol, $waypoint);

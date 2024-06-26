@@ -75,6 +75,7 @@ trait ManageMountsShips
         $page = $this->message()
             ->authorIcon(null)
             ->authorName('New Credit Balance: '.$response['agent']->credits)
+            ->title($shipSymbol)
             ->content(
                 collect($cargo->inventory)->map(function (ShipCargoItem $cargoItem) {
                     return vsprintf('- [**%s** - %s]: %s', [$cargoItem->symbol->value, $cargoItem->name, $cargoItem->units]);
@@ -113,6 +114,7 @@ trait ManageMountsShips
         $page = $this->message()
             ->authorIcon(null)
             ->authorName('New Credit Balance: '.$response['agent']->credits)
+            ->title($shipSymbol)
             ->content(
                 collect($cargo->inventory)->map(function (ShipCargoItem $cargoItem) {
                     return vsprintf('- [**%s** - %s]: %s', [$cargoItem->symbol->value, $cargoItem->name, $cargoItem->units]);

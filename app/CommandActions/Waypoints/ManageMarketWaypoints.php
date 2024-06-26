@@ -48,11 +48,11 @@ trait ManageMarketWaypoints
     public function manageMarketWaypointsInteractions(): array
     {
         return [
-            'waypoint-market:{waypoint}:{page?}' => fn (Interaction $interaction, string $waypoint, $page = 1) => $this->market($interaction, $waypoint, $page, $interaction->data->values[0] ?? 'Exports'),
+            'waypoint-market:{waypoint}:{menu?}:{page?}' => fn (Interaction $interaction, string $waypoint, $menu = 'Exports', $page = 1) => $this->market($interaction, $waypoint, $interaction->data->values[0] ?? $menu, $page),
         ];
     }
 
-    public function market(Interaction $interaction, string $waypoint, $pageNumber = 1, $option = 'Exports')
+    public function market(Interaction $interaction, string $waypoint, $option = 'Exports', $pageNumber = 1)
     {
         $space_traders = $this->getSpaceTraders($interaction);
         try {
@@ -80,7 +80,7 @@ trait ManageMarketWaypoints
                 message: $page,
                 results: $market->exports,
                 emptyMessage: 'No Exports at Market',
-                routeName: "waypoint-market:{$waypoint}",
+                routeName: "waypoint-market:{$waypoint}:{$option}",
                 callback: function (Message $message, Collection $results) {
                     return $message
                         ->fields($results->mapWithKeys(fn (TradeGood $trade_good) => ["[{$trade_good->symbol->value}]: {$trade_good->name}" => "{$trade_good->description}"])->toArray());
@@ -89,7 +89,7 @@ trait ManageMarketWaypoints
                 message: $page,
                 results: $market->imports,
                 emptyMessage: 'No Imports at Market',
-                routeName: "waypoint-market:{$waypoint}",
+                routeName: "waypoint-market:{$waypoint}:{$option}",
                 callback: function (Message $message, Collection $results) {
                     return $message
                         ->fields($results->mapWithKeys(fn (TradeGood $trade_good) => ["[{$trade_good->symbol->value}]: {$trade_good->name}" => "{$trade_good->description}"])->toArray());
@@ -98,7 +98,7 @@ trait ManageMarketWaypoints
                 message: $page,
                 results: $market->exchange,
                 emptyMessage: 'No Exchanges at Market',
-                routeName: "waypoint-market:{$waypoint}",
+                routeName: "waypoint-market:{$waypoint}:{$option}",
                 callback: function (Message $message, Collection $results) {
                     return $message
                         ->fields($results->mapWithKeys(fn (TradeGood $trade_good) => ["[{$trade_good->symbol->value}]: {$trade_good->name}" => "{$trade_good->description}"])->toArray());
@@ -107,7 +107,7 @@ trait ManageMarketWaypoints
                 message: $page,
                 results: $market->transactions,
                 emptyMessage: 'No Transactions at Market',
-                routeName: "waypoint-market:{$waypoint}",
+                routeName: "waypoint-market:{$waypoint}:{$option}",
                 callback: function (Message $message, Collection $results) {
                     /**
                      * @var $result MarketTransaction
@@ -129,7 +129,7 @@ trait ManageMarketWaypoints
                 message: $page,
                 results: $market->tradeGoods,
                 emptyMessage: 'No Transactions at Market',
-                routeName: "waypoint-market:{$waypoint}",
+                routeName: "waypoint-market:{$waypoint}:{$option}",
                 callback: function (Message $message, Collection $results) {
                     /**
                      * @var $result MarketTradeGood

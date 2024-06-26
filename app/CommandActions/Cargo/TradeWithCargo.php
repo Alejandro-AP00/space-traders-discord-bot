@@ -110,8 +110,8 @@ trait TradeWithCargo
         $transaction = $response['transaction'];
 
         $page = $this->message()
+            ->authorName($shipSymbol)
             ->authorIcon(null)
-            ->authorName('New Credit Balance: '.$response['agent']->credits)
             ->content(
                 collect($cargo->inventory)->map(function (ShipCargoItem $cargoItem) {
                     return vsprintf('- [**%s** - %s]: %s', [$cargoItem->symbol->value, $cargoItem->name, $cargoItem->units]);
@@ -128,6 +128,8 @@ trait TradeWithCargo
                 'Price' => $response['transaction']->price,
                 'Date' => Date::parse($response['transaction']->timestamp)->toDiscord(),
             ]);
+
+        $page = $this->newBalance($page, $response['agent']);
 
         return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
     }
@@ -150,7 +152,7 @@ trait TradeWithCargo
 
         $page = $this->message()
             ->authorIcon(null)
-            ->authorName('New Credit Balance: '.$response['agent']->credits)
+            ->authorName($shipSymbol)
             ->content(
                 collect($cargo->inventory)->map(function (ShipCargoItem $cargoItem) {
                     return vsprintf('- [**%s** - %s]: %s', [$cargoItem->symbol->value, $cargoItem->name, $cargoItem->units]);
@@ -167,6 +169,8 @@ trait TradeWithCargo
                 'Price' => $response['transaction']->price,
                 'Date' => Date::parse($response['transaction']->timestamp)->toDiscord(),
             ]);
+
+        $page = $this->newBalance($page, $response['agent']);
 
         return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
     }

@@ -129,6 +129,11 @@ trait ListWaypoints
                 ->button('Details', style: Button::STYLE_SECONDARY, route: "waypoint-details:{$waypoint->symbol}");
         });
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        //        dump($interaction->user->id);
+        //        dump($interaction->message?->user_id);
+
+        return $page->editOrReply($interaction);
+
+        //        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
     }
 }

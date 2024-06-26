@@ -10,7 +10,7 @@
   "license": "MIT",
   "require": {
     "php": "^8.2",
-    "laracord/framework": "^2.2.3",
+    "laracord/framework": "^2.2.8",
     "alejandro-ap00/space-traders-php-sdk": "^0.7.0"
   },
   "require-dev": {

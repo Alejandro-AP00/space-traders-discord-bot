@@ -63,6 +63,7 @@ trait RefineCargo
 
         $page = $this->message()
             ->authorIcon(null)
+            ->authorName($shipSymbol)
             ->content(
                 collect($cargo->inventory)->map(function (ShipCargoItem $cargoItem) {
                     return vsprintf('- [**%s** - %s]: %s', [$cargoItem->symbol->value, $cargoItem->name, $cargoItem->units]);

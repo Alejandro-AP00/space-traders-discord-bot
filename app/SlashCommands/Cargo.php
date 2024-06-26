@@ -9,6 +9,7 @@ use App\CommandActions\Cargo\TradeWithCargo;
 use App\CommandActions\Cargo\TransferCargo;
 use App\Traits\CanPaginate;
 use App\Traits\HasAgent;
+use App\Traits\HasMessageUtils;
 use Discord\Parts\Interactions\Interaction;
 use Laracord\Commands\SlashCommand;
 
@@ -17,6 +18,7 @@ class Cargo extends SlashCommand
     use CanPaginate,
         ExtractCargo,
         HasAgent,
+        HasMessageUtils,
         JettisonCargo,
         RefineCargo,
         TradeWithCargo,

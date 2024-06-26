@@ -80,7 +80,7 @@ trait ScrapShips
 
         $page = $this->message()
             ->authorIcon(null)
-            ->title('Scrap '.$shipSymbol)
+            ->title('Scrap '.$shipSymbol.'?')
             ->fields([
                 'Transaction' => "\u{200B}",
                 'Waypoint' => $transaction->waypointSymbol,

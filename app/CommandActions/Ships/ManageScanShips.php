@@ -110,6 +110,8 @@ trait ManageScanShips
         $waypoint = $response['waypoint'];
 
         $page = $this->message()
+            ->authorIcon(null)
+            ->authorName($shipSymbol)
             ->title('Charted'.$response['chart']->waypointSymbol)
             ->footerText($response['chart']->submittedBy)
             ->fields([
@@ -147,7 +149,7 @@ trait ManageScanShips
             $response['surveys'],
             'No surveys',
             'survey',
-            function (Message $message, $items) {
+            function (Message $message, $items) use ($shipSymbol) {
                 /**
                  * @var $survey Survey
                  */
@@ -155,12 +157,13 @@ trait ManageScanShips
 
                 return $message
                     ->authorIcon(null)
-                    ->authorName($survey->signature)
+                    ->authorName($shipSymbol)
                     ->title($survey->symbol)
                     ->content(collect($survey->deposits)->map(function (SurveyDeposit $deposit) {
                         return $deposit->symbol;
                     })->join("\n"))
                     ->fields([
+                        'Signature' => $survey->signature,
                         'Size' => $survey->size->value,
                         'Expiration' => Date::parse($survey->expiration)->toDiscord(),
                     ]);
