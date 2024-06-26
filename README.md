@@ -1,3 +1,3 @@
 # About
 
-A Space Traders Discord bot using the Laracord framework.
+A [SpaceTraders](https://spacetraders.io/) Discord bot using the Laracord framework.
