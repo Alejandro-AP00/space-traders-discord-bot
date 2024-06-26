@@ -53,6 +53,6 @@ trait ManageJumpGateWaypoints
             ->title('Jump Gate: '.$jump_gate->symbol)
             ->field('Connections', collect($jump_gate->connections)->join("\n"), false);
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 }

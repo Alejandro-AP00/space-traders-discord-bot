@@ -131,7 +131,7 @@ trait TradeWithCargo
 
         $page = $this->newBalance($page, $response['agent']);
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 
     public function buy(Interaction $interaction, $shipSymbol, $tradeGood, $units)
@@ -172,6 +172,6 @@ trait TradeWithCargo
 
         $page = $this->newBalance($page, $response['agent']);
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 }

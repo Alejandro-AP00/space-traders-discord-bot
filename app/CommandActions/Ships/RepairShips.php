@@ -62,7 +62,7 @@ trait RepairShips
                 'Date' => Date::parse($response['transaction']->timestamp)->toDiscord(),
             ]);
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 
     public function repairValue(Interaction $interaction, string $shipSymbol)
@@ -89,6 +89,6 @@ trait RepairShips
             ])
             ->button('Confirm Repair Ship', style: Button::STYLE_SUCCESS, route: 'confirm-repair:'.$shipSymbol);
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 }

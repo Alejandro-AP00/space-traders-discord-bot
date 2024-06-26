@@ -126,7 +126,7 @@ trait ManageScanShips
             ])
             ->timestamp(Date::parse($response['chart']->submittedOn));
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 
     public function survey(Interaction $interaction, string $shipSymbol, $pageNumber = 1): false|\React\Promise\ExtendedPromiseInterface
@@ -171,7 +171,7 @@ trait ManageScanShips
             page: $pageNumber
         );
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 
     public function systems(Interaction $interaction, string $shipSymbol, $pageNumber = 1): false|\React\Promise\ExtendedPromiseInterface
@@ -217,7 +217,7 @@ trait ManageScanShips
             page: $pageNumber
         );
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 
     public function waypoints(Interaction $interaction, string $shipSymbol, $pageNumber = 1): false|\React\Promise\ExtendedPromiseInterface
@@ -273,7 +273,7 @@ trait ManageScanShips
             page: $pageNumber
         );
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 
     public function ships(Interaction $interaction, string $shipSymbol, $pageNumber = 1): false|\React\Promise\ExtendedPromiseInterface
@@ -326,6 +326,6 @@ trait ManageScanShips
             page: $pageNumber
         );
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 }

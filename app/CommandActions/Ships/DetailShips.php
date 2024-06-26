@@ -85,7 +85,7 @@ trait DetailShips
             'Cargo' => $this->getCargo($page, $ship),
         };
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 
     private function getMounts(Message $page, Ship $ship, $pageNumber = 1): Message

@@ -94,7 +94,7 @@ trait ManageMountsShips
             ])
             ->button('Ship Details', style: Button::STYLE_SECONDARY, route: 'ship-details:'.$shipSymbol);
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 
     public function remove(Interaction $interaction, string $shipSymbol, string $mountSymbol)
@@ -133,6 +133,6 @@ trait ManageMountsShips
             ])
             ->button('Ship Details', style: Button::STYLE_SECONDARY, route: 'ship-details:'.$shipSymbol);
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 }

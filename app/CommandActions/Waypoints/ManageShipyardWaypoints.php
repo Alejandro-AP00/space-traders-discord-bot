@@ -113,7 +113,7 @@ trait ManageShipyardWaypoints
                 }, page: $pageNumber)
         };
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 
     public function purchaseShip(Interaction $interaction, $waypoint, $ship): false|\React\Promise\ExtendedPromiseInterface
@@ -152,6 +152,6 @@ trait ManageShipyardWaypoints
                 'Mounts' => collect($ship->mounts)->map(fn (ShipMount $module) => $module->symbol->value)->join("\n"),
             ]);
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 }

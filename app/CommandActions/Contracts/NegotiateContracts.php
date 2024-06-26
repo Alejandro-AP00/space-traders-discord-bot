@@ -42,6 +42,6 @@ trait NegotiateContracts
 
         $page = $this->contractPage($this->message(), $response['contract']);
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 }

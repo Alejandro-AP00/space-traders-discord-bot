@@ -70,6 +70,6 @@ trait ManageFlightModeNavigation
             $response['nav']
         );
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 }

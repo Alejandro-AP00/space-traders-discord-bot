@@ -88,7 +88,7 @@ trait ExtractCargo
                 return ["[{$event->symbol->value}]: {$event->component->value} - {$event->name}" => $event->description];
             })->toArray());
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 
     //    public function extractWithSurvey() {}
@@ -135,6 +135,6 @@ trait ExtractCargo
                 return ["[{$event->symbol->value}]: {$event->component->value} - {$event->name}" => $event->description];
             })->toArray());
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 }

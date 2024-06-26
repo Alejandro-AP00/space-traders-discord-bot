@@ -44,6 +44,6 @@ trait ListContracts
 
         $page = $this->paginate($this->message(), $contracts, "You don't have any contracts", 'contract', fn ($message, $contract) => $this->contractPage($message, $contract));
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 }

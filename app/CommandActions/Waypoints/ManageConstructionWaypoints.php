@@ -139,7 +139,7 @@ trait ManageConstructionWaypoints
                 })->toArray(),
             ]);
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 
     public function supplyConstruction(Interaction $interaction, string $waypoint, string $ship, string $good, int $units): false|\React\Promise\ExtendedPromiseInterface
@@ -182,6 +182,6 @@ trait ManageConstructionWaypoints
                 })->toArray(),
             ]);
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 }

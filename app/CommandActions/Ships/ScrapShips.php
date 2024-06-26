@@ -62,7 +62,7 @@ trait ScrapShips
                 'Date' => Date::parse($response['transaction']->timestamp)->toDiscord(),
             ]);
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 
     public function scrapValue(Interaction $interaction, string $shipSymbol)
@@ -89,6 +89,6 @@ trait ScrapShips
             ])
             ->button('Confirm Scrap Ship', style: Button::STYLE_DANGER, route: 'confirm-scrap:'.$shipSymbol);
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 }

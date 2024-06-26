@@ -52,7 +52,7 @@ trait ListShips
                 ->button('Details', style: Button::STYLE_SECONDARY, route: 'ship-details:'.$item->symbol);
         });
 
-        return $interaction->message?->user_id === $this->discord()->id ? $interaction->updateMessage($page->build()) : $interaction->respondWithMessage($page->build());
+        return $page->editOrReply($interaction);
     }
 
     public function listShipsInteractions(): array
